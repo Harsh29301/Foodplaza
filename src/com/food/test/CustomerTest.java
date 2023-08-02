@@ -52,14 +52,13 @@ public class CustomerTest {
                     emailId = sc.nextLine();
 
                     customer = customerDAOImpl.viewCustomerByEmailid(emailId);
-                    if(customer == null){
+                    if (customer == null) {
                         System.err.println("No Record Found :(");
-                    }
-                    else{
+                    } else {
                         System.out.println("Data Found : " + customer);
                         System.out.println("Do you really want to update the Record: (y/n)");
                         char c = sc.nextLine().charAt(0);
-                        if(c == 'y' || c == 'Y'){
+                        if (c == 'y' || c == 'Y') {
                             System.out.println("Enter Name: ");
                             ctr_Name = sc.nextLine();
                             System.out.println("Enter Password: ");
@@ -71,11 +70,35 @@ public class CustomerTest {
 
                             Customer updateCustomer = new Customer(ctr_Name, emailId, password, phoneno, address);
                             boolean update = customerDAOImpl.updateCustomer(updateCustomer);
-                            if(update){
+                            if (update) {
                                 System.out.println("Record Updated Successfully :) ");
-                            }
-                            else{
+                            } else {
                                 System.err.println("Error While updating the Record. Try Again !");
+                            }
+                        } else {
+                            System.out.println("Thank You :) ");
+                        }
+                    }
+                    break;
+
+                case 3: 
+
+                    System.out.println("Enter Email Id: ");
+                    emailId = sc.nextLine();
+
+                    customer = customerDAOImpl.viewCustomerByEmailid(emailId);
+
+                    if(customer == null){
+                        System.err.println("No Record Found :(");
+                    }
+                    else
+                    {
+                        System.out.println("Do You Really Want To delete the Record ? (y/n)");
+                        char c = sc.nextLine().charAt(0);
+                        if(c == 'y' || c == 'Y'){
+                            boolean delete = customerDAOImpl.deleteCustomer(emailId);
+                            if(delete){
+                                System.out.println("Record Deleted Successfully ");
                             }
                         }
                         else{
