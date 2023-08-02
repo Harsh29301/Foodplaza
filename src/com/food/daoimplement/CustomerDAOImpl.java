@@ -132,15 +132,15 @@ public class CustomerDAOImpl implements CustomerDAO {
                 ResultSet resultSet = ps.executeQuery()) {
             // From DB to POJO and add it into list.
 
-            Customer nCustomer = new Customer();
             while (resultSet.next()) {
-            nCustomer.setCtr_Name(resultSet.getString(1));
-            nCustomer.setEmailId(resultSet.getString(2));
-            nCustomer.setPassword(resultSet.getString(3));
-            nCustomer.setPhoneno(resultSet.getString(4));
-            nCustomer.setAddress(resultSet.getString(5));
+                Customer nCustomer = new Customer();
+                nCustomer.setCtr_Name(resultSet.getString(1));
+                nCustomer.setEmailId(resultSet.getString(2));
+                nCustomer.setPassword(resultSet.getString(3));
+                nCustomer.setPhoneno(resultSet.getString(4));
+                nCustomer.setAddress(resultSet.getString(5));
 
-            customerList.add (nCustomer);
+                customerList.add(nCustomer);
             }
         } catch (Exception e) {
             // TODO: handle exception

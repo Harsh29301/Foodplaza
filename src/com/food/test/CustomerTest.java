@@ -1,5 +1,6 @@
 package com.food.test;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.food.daoimplement.CustomerDAOImpl;
@@ -104,6 +105,13 @@ public class CustomerTest {
                         else{
                             System.out.println("Thank You :) ");
                         }
+                    }
+                    break;
+
+                case 4: 
+                    List<Customer> customersList = customerDAOImpl.viewAllCustomers();
+                    for (Customer ncustomer : customersList) {
+                        System.out.println(ncustomer);
                     }
                     break;
                 case 5:// View Customer By Email Id.
