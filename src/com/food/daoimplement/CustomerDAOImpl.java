@@ -94,7 +94,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+           // e.printStackTrace();
         }
 
         return false;
@@ -103,7 +103,19 @@ public class CustomerDAOImpl implements CustomerDAO {
     @Override
     public boolean deleteCustomer(String emailId) {
 
-        
+        query = "delete from Customer where emailId =?";
+        try (Connection connection = DBConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, emailId);
+
+            int i = ps.executeUpdate();
+            if(i>0){
+                return true;
+            }
+        } catch (Exception e) {
+            
+        }
+
         return false;
     }
 
