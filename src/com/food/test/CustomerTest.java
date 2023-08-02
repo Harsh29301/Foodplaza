@@ -21,7 +21,7 @@ public class CustomerTest {
         CustomerDAOImpl customerDAOImpl = new CustomerDAOImpl();
 
         do {
-            displayMenu();
+            displayMenu(); // Display Menu Method which is Static writen inside the Test Class.
             System.out.println("Select Operation :: ");
             choice = Integer.parseInt(sc.nextLine());
             switch (choice) {
@@ -47,7 +47,7 @@ public class CustomerTest {
                     }
                     break;
 
-                case 2:
+                case 2:  // Update Customer 
 
                     System.out.println("Enter Email Id: ");
                     emailId = sc.nextLine();
@@ -82,7 +82,7 @@ public class CustomerTest {
                     }
                     break;
 
-                case 3: 
+                case 3:  // Delete Customer
 
                     System.out.println("Enter Email Id: ");
                     emailId = sc.nextLine();
@@ -108,7 +108,7 @@ public class CustomerTest {
                     }
                     break;
 
-                case 4: 
+                case 4: // Show All Customer Details (Admin Access Only.)
                     List<Customer> customersList = customerDAOImpl.viewAllCustomers();
                     for (Customer ncustomer : customersList) {
                         System.out.println(ncustomer);
@@ -128,10 +128,10 @@ public class CustomerTest {
                     }
                     break;
 
-                case 6:
+                case 6: // Exit Case
                     System.out.println("Thank You :) ");
                     break;
-                default:
+                default:  // Defaulter
                     System.out.println("Select Appropriate Operation. ");
                     break;
             }
