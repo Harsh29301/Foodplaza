@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.food.dao.CustomerDAO;
 import com.food.pojo.Customer;
@@ -94,7 +96,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             }
 
         } catch (Exception e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
         }
 
         return false;
@@ -109,14 +111,41 @@ public class CustomerDAOImpl implements CustomerDAO {
             ps.setString(1, emailId);
 
             int i = ps.executeUpdate();
-            if(i>0){
+            if (i > 0) {
                 return true;
             }
         } catch (Exception e) {
-            
+
         }
 
         return false;
+    }
+
+    @Override
+    public List<Customer> viewAllCustomers() {
+
+        List<Customer> customerList = new ArrayList<>();
+        query = "select ctr_Name, emailId, password, phoneno, address from Customer";
+
+        try (Connection connection = DBConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet resultSet = ps.executeQuery()) {
+            // From DB to POJO and add it into list.
+
+            Customer nCustomer = new Customer();
+            while (resultSet.next()) {
+            nCustomer.setCtr_Name(resultSet.getString(1));
+            nCustomer.setEmailId(resultSet.getString(2));
+            nCustomer.setPassword(resultSet.getString(3));
+            nCustomer.setPhoneno(resultSet.getString(4));
+            nCustomer.setAddress(resultSet.getString(5));
+
+            customerList.add (nCustomer);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return customerList;
     }
 
 }
