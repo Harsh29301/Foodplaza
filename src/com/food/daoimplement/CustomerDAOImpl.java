@@ -73,4 +73,38 @@ public class CustomerDAOImpl implements CustomerDAO {
         return customer;
     }
 
+    @Override // Customer Update Method
+    public boolean updateCustomer(Customer customer) {
+
+        query = "update Customer set ctr_Name=?, password=?, phoneno=?, address=? where emailId =?";
+
+        try (Connection connection = DBConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, customer.getCtr_Name());
+            ps.setString(2, customer.getPassword());
+            ps.setString(3, customer.getPhoneno());
+            ps.setString(4, customer.getAddress());
+            ps.setString(5, customer.getEmailId());
+
+            int i = ps.executeUpdate();
+
+            if (i > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean deleteCustomer(String emailId) {
+
+        
+        return false;
+    }
+
 }
