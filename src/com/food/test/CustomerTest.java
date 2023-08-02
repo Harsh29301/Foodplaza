@@ -68,6 +68,7 @@ public class CustomerTest {
                     break;
             }
         } while (choice != 6);
+        sc.close();
     }
 
     public static void displayMenu() {
