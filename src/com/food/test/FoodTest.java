@@ -8,7 +8,6 @@ import com.food.pojo.Food;
 public class FoodTest {
 
     public static void main(String[] args) {
-
         int foodId;
         String foodName;
         String category;
@@ -50,12 +49,26 @@ public class FoodTest {
                     }
 
                     break;
-            
+                case 5: // View Food Items By Id.
+                    System.out.println("Enter Food Id: ");
+                    foodId = Integer.parseInt(sc.nextLine());
+
+                    food = foodDAOImpl.viewFoodbyFoodId(foodId);
+
+                    if(food == null){
+                        System.out.println("No Record Found :( ");
+                    }
+                    else{
+                        System.out.println(food);
+                    }
+                    break;
                 default:
                 System.out.println("Select Operation :: ");
                     break;
             }
         } while (choice != 9);
+
+        sc.close();
         
     }
 
@@ -63,8 +76,8 @@ public class FoodTest {
         System.out.println("1. Add Food Item");
         System.out.println("2. Update Food Item");
         System.out.println("3. Delete Food Item");
-        System.out.println("4. View Food by FoodId");
-        System.out.println("5. View All Food Items");
+        System.out.println("4. View All Food Items ");
+        System.out.println("5. View Food by FoodId");
         System.out.println("6. View Food by FoodName");
         System.out.println("7. View Food By FoodType");
         System.out.println("8. View Food By FoodCategory");

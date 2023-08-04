@@ -60,14 +60,16 @@ public class Food {
         this.foodType = foodType;
     }
 
-    public int getFoodId() {
-        return foodId;
-    }
+   
 
     @Override
     public String toString() {
         return "Food [foodId=" + foodId + ", foodName=" + foodName + ", category=" + category + ", description="
                 + description + ", price=" + price + ", foodType=" + foodType + "]";
+    }
+
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
 }
