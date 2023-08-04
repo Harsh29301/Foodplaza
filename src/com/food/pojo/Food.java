@@ -13,12 +13,13 @@ public class Food {
     public Food() {
     }
 
-    public Food(String foodName, String category, String description, double price, String foodType) {
+    public Food(String foodName, String category, String description, double price, String foodType, String image) {
         this.foodName = foodName;
         this.category = category;
         this.description = description;
         this.price = price;
         this.foodType = foodType;
+        this.image = image;
     }
 
     public String getFoodName() {
@@ -61,14 +62,6 @@ public class Food {
         this.foodType = foodType;
     }
 
-   
-
-    @Override
-    public String toString() {
-        return "Food [foodId=" + foodId + ", foodName=" + foodName + ", category=" + category + ", description="
-                + description + ", price=" + price + ", foodType=" + foodType + "]";
-    }
-
     public void setFoodId(int foodId) {
         this.foodId = foodId;
     }
@@ -76,5 +69,29 @@ public class Food {
     public int getFoodId() {
         return foodId;
     }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "Food [foodId=" + foodId + ", foodName=" + foodName + ", category=" + category + ", description="
+                + description + ", price=" + price + ", foodType=" + foodType + ", image=" + image + "]";
+    }
+
+    public Food(String foodName, String category, String description, double price, String foodType) {
+        this.foodName = foodName;
+        this.category = category;
+        this.description = description;
+        this.price = price;
+        this.foodType = foodType;
+    }
+
+    
 
 }

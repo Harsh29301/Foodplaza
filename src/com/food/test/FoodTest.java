@@ -13,7 +13,7 @@ public class FoodTest {
         String category;
         String description;
         double price;
-        String foodType;
+        String foodType, image;
         int choice;
         Scanner sc = new Scanner(System.in);
         Food food = null;
@@ -36,8 +36,10 @@ public class FoodTest {
                     foodType = sc.nextLine();
                     System.out.println("Enter Food Price: ");
                     price = Double.parseDouble(sc.nextLine());
+                    System.out.println("Add Image");
+                    image = sc.nextLine();
 
-                    food = new Food(foodName, category, description, price, foodType);
+                    food = new Food(foodName, category, description, price, foodType,image);
 
                     boolean addfood = foodDAOImpl.addFood(food);
 
@@ -50,7 +52,7 @@ public class FoodTest {
 
                     break;
 
-                case 2: 
+                case 2: // Update Food Items.
                     System.out.println("Enter Food Id: ");
                     foodId = Integer.parseInt(sc.nextLine());
 
