@@ -16,7 +16,7 @@ public class FoodDAOImpl implements FoodDAO {
     @Override
     public boolean addFood(Food food) {
 
-        query = "insert into food_items (FoodName, Category, Description, FoodType, Price) values (?,?,?,?,?)";
+        query = "insert into food_items (FoodName, Category, Description, FoodType, Price, Image) values (?,?,?,?,?,?)";
         try (Connection connection = DBConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query)) {
 
@@ -25,6 +25,7 @@ public class FoodDAOImpl implements FoodDAO {
             ps.setString(3, food.getDescription());
             ps.setString(4, food.getFoodType());
             ps.setDouble(5, food.getPrice());
+            ps.setString(6, food.getImage());
 
             int i = ps.executeUpdate();
 
