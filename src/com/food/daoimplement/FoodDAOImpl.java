@@ -40,8 +40,29 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public boolean updateFood(Food food) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateFood'");
+        query = "update food_items set FoodName=?, Category=?, Description=?, FoodType=?, Price=? where FoodId = ?";
+
+        try (Connection connection = DBConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, food.getFoodName());
+            ps.setString(2, food.getCategory());
+            ps.setString(3, food.getDescription());
+            ps.setString(4, food.getFoodType());
+            ps.setDouble(5, food.getPrice());
+            ps.setInt(6, food.getFoodId());
+
+            int i = ps.executeUpdate();
+
+            if (i > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     @Override

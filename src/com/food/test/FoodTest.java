@@ -49,6 +49,48 @@ public class FoodTest {
                     }
 
                     break;
+
+                case 2: 
+                    System.out.println("Enter Food Id: ");
+                    foodId = Integer.parseInt(sc.nextLine());
+
+                    food = foodDAOImpl.viewFoodbyFoodId(foodId);
+
+                    if(food == null){
+                        System.out.println("No Record Found :( ");
+                    }
+                    else{
+                        System.out.println("Data Found: " + food);
+                        System.out.println("Do you Really want to update the Record: (y/n)");
+                        char c = sc.nextLine().charAt(0);
+                        if(c == 'y' || c == 'Y'){
+                            System.out.println("Enter Food Name: ");
+                            foodName = sc.nextLine();
+                            System.out.println("Enter Food Category: ");
+                            category = sc.nextLine();
+                            System.out.println("Enter Food Discription: ");
+                            description = sc.nextLine();
+                            System.out.println("Enter Food Type: ");
+                            foodType = sc.nextLine();
+                            System.out.println("Enter Food Price: ");
+                            price = Double.parseDouble(sc.nextLine());
+
+
+                            Food updateFood = new Food(foodName, category, description, price, foodType);
+                            updateFood.setFoodId(foodId);
+                            boolean update = foodDAOImpl.updateFood(updateFood);
+                            if(update){
+                                System.out.println("Record Updated Successfully :) ");
+                            }
+                            else{
+                                System.out.println("Error While Updating the Record. Try Again !");
+                            }
+                        }
+                        else{
+                            System.out.println("Thank You :) ");
+                        }
+                    }
+                    break;  
                 case 5: // View Food Items By Id.
                     System.out.println("Enter Food Id: ");
                     foodId = Integer.parseInt(sc.nextLine());

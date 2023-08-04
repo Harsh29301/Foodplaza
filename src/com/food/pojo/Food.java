@@ -8,6 +8,7 @@ public class Food {
     private String description;
     private double price;
     private String foodType;
+    private String image;
 
     public Food() {
     }
@@ -70,6 +71,10 @@ public class Food {
 
     public void setFoodId(int foodId) {
         this.foodId = foodId;
+    }
+
+    public int getFoodId() {
+        return foodId;
     }
 
 }
