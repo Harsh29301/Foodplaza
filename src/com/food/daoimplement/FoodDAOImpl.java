@@ -3,6 +3,7 @@ package com.food.daoimplement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.food.dao.FoodDAO;
@@ -109,8 +110,30 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public List<Food> viewAllFood() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'viewAllFood'");
+        List<Food> foodList = new ArrayList<>();
+        query = "select FoodId, FoodName, Category, Description, FoodType, Price, Image from food_items";
+
+        try (Connection connection = DBConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query);
+                ResultSet resultSet = ps.executeQuery()) {
+
+                    while (resultSet.next()) {
+                        Food nFood = new Food();
+                        nFood.setFoodId(resultSet.getInt(1));
+                        nFood.setFoodName(resultSet.getString(2));
+                        nFood.setCategory(resultSet.getString(3));
+                        nFood.setDescription(resultSet.getString(4));
+                        nFood.setFoodType(resultSet.getString(5));
+                        nFood.setPrice(resultSet.getDouble(6));
+                        nFood.setImage(resultSet.getString(7));
+
+                        foodList.add(nFood);
+                    }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return foodList;
     }
 
     @Override

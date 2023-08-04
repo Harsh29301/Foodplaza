@@ -1,5 +1,6 @@
 package com.food.test;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.food.daoimplement.FoodDAOImpl;
@@ -39,14 +40,13 @@ public class FoodTest {
                     System.out.println("Add Image");
                     image = sc.nextLine();
 
-                    food = new Food(foodName, category, description, price, foodType,image);
+                    food = new Food(foodName, category, description, price, foodType, image);
 
                     boolean addfood = foodDAOImpl.addFood(food);
 
-                    if(addfood){
+                    if (addfood) {
                         System.out.println("Food Item Added Successfully :) ");
-                    }
-                    else{
+                    } else {
                         System.out.println("Error While Adding Food Item X Try Again ! :( ");
                     }
 
@@ -58,14 +58,13 @@ public class FoodTest {
 
                     food = foodDAOImpl.viewFoodbyFoodId(foodId);
 
-                    if(food == null){
+                    if (food == null) {
                         System.out.println("No Record Found :( ");
-                    }
-                    else{
+                    } else {
                         System.out.println("Data Found: " + food);
                         System.out.println("Do you Really want to update the Record: (y/n)");
                         char c = sc.nextLine().charAt(0);
-                        if(c == 'y' || c == 'Y'){
+                        if (c == 'y' || c == 'Y') {
                             System.out.println("Enter Food Name: ");
                             foodName = sc.nextLine();
                             System.out.println("Enter Food Category: ");
@@ -77,43 +76,50 @@ public class FoodTest {
                             System.out.println("Enter Food Price: ");
                             price = Double.parseDouble(sc.nextLine());
 
-
                             Food updateFood = new Food(foodName, category, description, price, foodType);
                             updateFood.setFoodId(foodId);
                             boolean update = foodDAOImpl.updateFood(updateFood);
-                            if(update){
+                            if (update) {
                                 System.out.println("Record Updated Successfully :) ");
-                            }
-                            else{
+                            } else {
                                 System.out.println("Error While Updating the Record. Try Again !");
                             }
-                        }
-                        else{
+                        } else {
                             System.out.println("Thank You :) ");
                         }
                     }
-                    break;  
+                    break;
+
+                case 4:
+                    List<Food> foodList = foodDAOImpl.viewAllFood();
+                    for (Food nFood : foodList) {
+                        System.out.println(nFood);
+                    }
+                    break;
                 case 5: // View Food Items By Id.
                     System.out.println("Enter Food Id: ");
                     foodId = Integer.parseInt(sc.nextLine());
 
                     food = foodDAOImpl.viewFoodbyFoodId(foodId);
 
-                    if(food == null){
+                    if (food == null) {
                         System.out.println("No Record Found :( ");
-                    }
-                    else{
+                    } else {
                         System.out.println(food);
                     }
                     break;
+                case 9:
+                    System.out.println("Thank You: ");
+                    System.exit(0);
+                    break;
                 default:
-                System.out.println("Select Operation :: ");
+                    System.out.println("Select Operation :: ");
                     break;
             }
         } while (choice != 9);
 
         sc.close();
-        
+
     }
 
     static void foodMenu() {
