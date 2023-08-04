@@ -19,6 +19,7 @@ public class FoodTest {
         Scanner sc = new Scanner(System.in);
         Food food = null;
         FoodDAOImpl foodDAOImpl = new FoodDAOImpl();
+        List<Food> foodList;
 
         do {
             foodMenu();
@@ -90,8 +91,8 @@ public class FoodTest {
                     }
                     break;
 
-                case 4:
-                    List<Food> foodList = foodDAOImpl.viewAllFood();
+                case 4: // View All Food Items
+                    foodList = foodDAOImpl.viewAllFood();
                     for (Food nFood : foodList) {
                         System.out.println(nFood);
                     }
@@ -108,6 +109,16 @@ public class FoodTest {
                         System.out.println(food);
                     }
                     break;
+
+                case 6: // View Food Items by name:
+                    System.out.println("Enter Food Name: ");
+                    foodName = sc.nextLine();
+                    List<Food> fList = foodDAOImpl.viewFoodsbyFoodName(foodName);
+                    for (Food nFood : fList) {
+                        System.out.println(nFood);
+                    }
+                    break;
+
                 case 9:
                     System.out.println("Thank You: ");
                     System.exit(0);

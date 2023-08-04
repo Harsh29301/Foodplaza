@@ -117,18 +117,18 @@ public class FoodDAOImpl implements FoodDAO {
                 PreparedStatement ps = connection.prepareStatement(query);
                 ResultSet resultSet = ps.executeQuery()) {
 
-                    while (resultSet.next()) {
-                        Food nFood = new Food();
-                        nFood.setFoodId(resultSet.getInt(1));
-                        nFood.setFoodName(resultSet.getString(2));
-                        nFood.setCategory(resultSet.getString(3));
-                        nFood.setDescription(resultSet.getString(4));
-                        nFood.setFoodType(resultSet.getString(5));
-                        nFood.setPrice(resultSet.getDouble(6));
-                        nFood.setImage(resultSet.getString(7));
+            while (resultSet.next()) {
+                Food nFood = new Food();
+                nFood.setFoodId(resultSet.getInt(1));
+                nFood.setFoodName(resultSet.getString(2));
+                nFood.setCategory(resultSet.getString(3));
+                nFood.setDescription(resultSet.getString(4));
+                nFood.setFoodType(resultSet.getString(5));
+                nFood.setPrice(resultSet.getDouble(6));
+                nFood.setImage(resultSet.getString(7));
 
-                        foodList.add(nFood);
-                    }
+                foodList.add(nFood);
+            }
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -138,8 +138,40 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public List<Food> viewFoodsbyFoodName(String foodName) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'viewFoodsbyFoodName'");
+        query = "SELECT * FROM food_items WHERE FoodName LIKE ?";
+        ResultSet resultSet = null;
+        List<Food> foodList = new ArrayList<>();
+        try (Connection connection = DBConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1, "%" + foodName + "%");
+            resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                Food nFood = new Food();
+                nFood.setFoodId(resultSet.getInt("FoodId"));
+                nFood.setFoodName(resultSet.getString("FoodName"));
+                nFood.setCategory(resultSet.getString("Category"));
+                nFood.setDescription(resultSet.getString("Description"));
+                nFood.setFoodType(resultSet.getString("FoodType"));
+                nFood.setPrice(resultSet.getDouble("Price"));
+                nFood.setImage(resultSet.getString("Image"));
+
+                foodList.add(nFood);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        finally{
+            try {
+                if(resultSet != null){
+                    resultSet.close();
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
+        return foodList;
     }
 
     @Override
