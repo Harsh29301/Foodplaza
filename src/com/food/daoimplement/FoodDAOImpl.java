@@ -227,8 +227,40 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public List<Food> viewFoodbyFoodCategory(String category) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'viewFoodbyFoodCategory'");
+        List<Food> foodList = new ArrayList<>();
+        query = "select * from food_items where Category = ?";
+         ResultSet resultSet = null;
+
+        try (Connection connection = DBConnection.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query)) {
+            ps.setString(1, category);
+            resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                Food nFood = new Food();
+                nFood.setFoodId(resultSet.getInt("FoodId"));
+                nFood.setFoodName(resultSet.getString("FoodName"));
+                nFood.setCategory(resultSet.getString("Category"));
+                nFood.setDescription(resultSet.getString("Description"));
+                nFood.setFoodType(resultSet.getString("FoodType"));
+                nFood.setPrice(resultSet.getDouble("Price"));
+                nFood.setImage(resultSet.getString("Image"));
+
+                foodList.add(nFood);
+
+            }
+        } catch (Exception e) {
+            
+        }
+        finally{
+            try {
+                if(resultSet != null){
+                    resultSet.close();
+                }
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        }
+        return foodList;
     }
 
 }
