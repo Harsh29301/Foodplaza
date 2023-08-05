@@ -149,7 +149,7 @@ public class FoodTest {
                     }
                     break;
 
-                case 8: 
+                case 8: // View Food Items By Food Category
                     System.out.println("Enter Food Category: ");
                     category = sc.nextLine();
                     List<Food> cList = foodDAOImpl.viewFoodbyFoodCategory(category);
@@ -157,7 +157,7 @@ public class FoodTest {
                         System.out.println(food3);
                     }
                     break;
-                case 9:
+                case 9: // Exit
                     System.out.println("Thank You: ");
                     System.exit(0);
                     break;
