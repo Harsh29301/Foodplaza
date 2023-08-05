@@ -91,6 +91,27 @@ public class FoodTest {
                     }
                     break;
 
+                case 3: // Delete Food Items.
+                    System.out.println("Enter Food Id: ");
+                    foodId = Integer.parseInt(sc.nextLine());
+
+                    food = foodDAOImpl.viewFoodbyFoodId(foodId);
+                    if (food == null) {
+                        System.out.println("No Record Found :( ");
+                    } else {
+                        System.out.println("Do You Really Want To Delete the Record ? (y/n)");
+                        char c = sc.nextLine().charAt(0);
+                        if (c == 'y' || c == 'Y') {
+                            boolean delete = foodDAOImpl.deleteFood(foodId);
+                            if (delete) {
+                                System.out.println("Record Deleted Successfully ");
+                            }
+                        } else {
+                            System.out.println("Thank You :)");
+                        }
+                    }
+                    break;
+
                 case 4: // View All Food Items
                     foodList = foodDAOImpl.viewAllFood();
                     for (Food nFood : foodList) {

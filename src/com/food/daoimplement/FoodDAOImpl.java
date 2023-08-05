@@ -69,8 +69,21 @@ public class FoodDAOImpl implements FoodDAO {
 
     @Override
     public boolean deleteFood(int foodId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteFood'");
+
+        query = "delete from food_items where FoodId = ?";
+        try (Connection connection = DBConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setInt(1, foodId);
+
+            int i = ps.executeUpdate();
+            if (i > 0) {
+                return true;
+            }
+        } catch (Exception e) {
+            
+        }
+        return false;
     }
 
     @Override
@@ -161,10 +174,9 @@ public class FoodDAOImpl implements FoodDAO {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
+        } finally {
             try {
-                if(resultSet != null){
+                if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (Exception e) {
