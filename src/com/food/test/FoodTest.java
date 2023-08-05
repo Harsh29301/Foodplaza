@@ -140,6 +140,23 @@ public class FoodTest {
                     }
                     break;
 
+                case 7: // View Food Items By Food Type.
+                    System.out.println("Enter Food Type: ");
+                    foodType = sc.nextLine();
+                    List<Food> ftList = foodDAOImpl.viewFoodsbyFoodType(foodType);
+                    for (Food food2 : ftList) {
+                        System.out.println(food2);
+                    }
+                    break;
+
+                case 8: 
+                    System.out.println("Enter Food Category: ");
+                    category = sc.nextLine();
+                    List<Food> cList = foodDAOImpl.viewFoodbyFoodCategory(category);
+                    for (Food food3 : cList) {
+                        System.out.println(food3);
+                    }
+                    break;
                 case 9:
                     System.out.println("Thank You: ");
                     System.exit(0);
