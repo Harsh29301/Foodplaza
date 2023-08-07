@@ -158,7 +158,7 @@ public class FoodTest {
                     }
                     break;
 
-                case 9: // Exit
+                case 9: // Upload Image 
                     System.out.println("Enter Food Id: ");
                     foodId = Integer.parseInt(sc.nextLine());
 
