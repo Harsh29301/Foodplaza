@@ -11,7 +11,7 @@ public class Login {
 
     public void setEmailId(String emailId) {
         this.emailId = emailId;
-    }
+    } 
 
     public String getPassword() {
         return password;
