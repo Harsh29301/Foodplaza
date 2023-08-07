@@ -268,7 +268,6 @@ public class FoodDAOImpl implements FoodDAO {
 
         query = "update food_items set Image = ? where FoodId = ?";
 
-        Food food = null;
         try (Connection connection = DBConnection.getConnection();
         PreparedStatement ps = connection.prepareStatement(query)) {
             
