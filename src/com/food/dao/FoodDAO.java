@@ -21,4 +21,6 @@ public interface FoodDAO {
     List<Food> viewFoodsbyFoodType(String foodType);
 
     List<Food> viewFoodbyFoodCategory(String category);
+
+    public boolean updateImage (int foodId, String path);
 }

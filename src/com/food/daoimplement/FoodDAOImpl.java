@@ -263,4 +263,27 @@ public class FoodDAOImpl implements FoodDAO {
         return foodList;
     }
 
+    @Override
+    public boolean updateImage(int foodId, String path) {
+
+        query = "update food_items set Image = ? where FoodId = ?";
+
+        Food food = null;
+        try (Connection connection = DBConnection.getConnection();
+        PreparedStatement ps = connection.prepareStatement(query)) {
+            
+            ps.setString(1, path);
+            ps.setInt(2,foodId);
+
+            int i = ps.executeUpdate();
+            if(i>0){
+                return true;
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }        
+        return false;
+    }
+
 }

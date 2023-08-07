@@ -157,7 +157,38 @@ public class FoodTest {
                         System.out.println(food3);
                     }
                     break;
+
                 case 9: // Exit
+                    System.out.println("Enter Food Id: ");
+                    foodId = Integer.parseInt(sc.nextLine());
+
+                    food = foodDAOImpl.viewFoodbyFoodId(foodId);
+
+                    if (food == null) {
+                        System.out.println("No Record Found :( ");
+                    } else {
+                        System.out.println("Record Found: " + food);
+                        System.out.println("Do You Really Want TO Update This Record (y/n) ?");
+                        char c = sc.nextLine().charAt(0);
+
+                        if (c == 'y' || c == 'Y') {
+                            System.out.println("Enter Food Image: ");
+                            image = sc.nextLine();
+                            
+                            boolean updateImage = foodDAOImpl.updateImage(foodId, image);
+                            
+                            if (updateImage) {
+                                System.out.println("Image Path Updated Successfully :) ");
+                            } else {
+                                System.out.println("Error While Uploading the Image. Try Again !");
+                            }
+                        } else {
+                            System.out.println("Thank You :) ");
+                        }
+
+                    }
+                    break;
+                case 10: // Exit
                     System.out.println("Thank You: ");
                     System.exit(0);
                     break;
@@ -165,7 +196,7 @@ public class FoodTest {
                     System.out.println("Select Operation :: ");
                     break;
             }
-        } while (choice != 9);
+        } while (choice != 10);
 
         sc.close();
 
@@ -180,6 +211,7 @@ public class FoodTest {
         System.out.println("6. View Food by FoodName");
         System.out.println("7. View Food By FoodType");
         System.out.println("8. View Food By FoodCategory");
-        System.out.println("9. Exit");
+        System.out.println("9. Upload Image.");
+        System.out.println("10. Exit");
     }
 }
