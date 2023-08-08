@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.food.dao.CartDAO;
 import com.food.pojo.Cart;
+import com.food.pojo.Food;
 import com.food.util.DBConnection;
 
 public class CartDAOImpl implements CartDAO {
@@ -23,20 +24,34 @@ public class CartDAOImpl implements CartDAO {
     @Override
     public boolean addToCart(Cart cart) {
 
-        query = "inser into Cart (emailId, foodId, foodName, quantity, price, totalPrice) values (?,?,?,?,?,?)";
-        try (Connection connection = DBConnection.getConnection();
-            PreparedStatement ps = connection.prepareStatement(query)) {
+    
+        boolean isFoodPresent = checkFoodInCart(cart.getFoodId(), cart.getEmailId());
+        if(isFoodPresent){
+            return true;
+        }
+        else{
+            query = "inser into Cart (emailId, foodId, foodName, quantity, price, totalPrice) values (?,?,?,?,?,?)";
+            try (Connection connection = DBConnection.getConnection();
+                PreparedStatement ps = connection.prepareStatement(query)) {
 
-                //boolean isFoodPresent = getFoodFromCart(cart.getFoodId());
-                if(false){
+                    ps.setString(1, cart.getEmailId());
+                    ps.setInt(2, cart.getFoodId());
+                    Food viewFoodById = new FoodDAOImpl().viewFoodbyFoodId(cart.getFoodId());
+                    ps.setString(3, viewFoodById.getFoodName());
+                    ps.setInt(4, cart.getQuantity());
+                    ps.setDouble(5, viewFoodById.getPrice());
 
-                }
-                else{
+                    double total = viewFoodById.getPrice() * cart.getQuantity();
+                    ps.setDouble(6, total);
 
-                }
-            
-        } catch (Exception e) {
-            // TODO: handle exception
+                    int i = ps.executeUpdate();
+                    if(i > 0){
+                        return true;
+                    }
+                
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
         }
         return false;
     }
@@ -52,16 +67,16 @@ public class CartDAOImpl implements CartDAO {
 
         query = "update Cart set quantity = ? where cartId = ?";
         try (Connection connection = DBConnection.getConnection();
-            PreparedStatement ps = connection.prepareStatement(query)) {
-            
-                ps.setInt(1, quantity);
-                ps.setInt(2, cartId);
+                PreparedStatement ps = connection.prepareStatement(query)) {
 
-                int  i = ps.executeUpdate();
+            ps.setInt(1, quantity);
+            ps.setInt(2, cartId);
 
-                if( i>0){
-                    return true;
-                }
+            int i = ps.executeUpdate();
+
+            if (i > 0) {
+                return true;
+            }
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -92,7 +107,7 @@ public class CartDAOImpl implements CartDAO {
         throw new UnsupportedOperationException("Unimplemented method 'viewCart'");
     }
 
-    private boolean checkFoodFromCart(int foodId, String emailId){
+    private boolean checkFoodInCart(int foodId, String emailId) {
 
         query = "select cartId,quantity from Cart where foodId = ? and emailId = ?";
 
@@ -100,23 +115,22 @@ public class CartDAOImpl implements CartDAO {
         try (Connection connection = DBConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query)) {
 
-                    ps.setInt(1, foodId);
-                    ps.setString(2, emailId);
-                     resultSet= ps.executeQuery();
-                     if(resultSet.next()){
-                        int cartId = resultSet.getInt("cartId");
-                        int food_ID = resultSet.getInt("foodId");
-                        int quantity = resultSet.getInt("quantity");
+            ps.setInt(1, foodId);
+            ps.setString(2, emailId);
+            resultSet = ps.executeQuery();
+            if (resultSet.next()) {
+                int cartId = resultSet.getInt(1);
+                int quantity = resultSet.getInt(2);
+                quantity += 1;
 
-                        return true;
-                     }
-            
+                return updateCart(cartId, quantity) ;
+            }
+
         } catch (Exception e) {
             // TODO: handle exception
-        }
-        finally{
+        } finally {
             try {
-                if(resultSet != null){
+                if (resultSet != null) {
                     resultSet.close();
                 }
             } catch (Exception e) {
