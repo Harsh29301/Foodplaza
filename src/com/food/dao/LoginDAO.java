@@ -4,7 +4,6 @@ import com.food.pojo.Customer;
 
 public interface LoginDAO {
     
-    public boolean signUp(Customer customer);
-
-    public boolean signIn();
+    public boolean validateCustomer(String emailId, String password);
+    public boolean validateAdmin(String emailId, String password);
 }
