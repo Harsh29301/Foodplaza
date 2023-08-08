@@ -9,8 +9,8 @@ public interface CartDAO {
 
     Cart viewCartById(int cartId);
     boolean updateCart(int cartId, int quantity);
-    boolean deleteCartById(int cartId);
-    boolean deleteCartByEmailId(String emailId);
+    boolean deleteCartItems(int cartId);
+    boolean clearCart(String emailId);
     List<Cart> viewCartByEmailId(String email);
     List<Cart> viewCart();
 
