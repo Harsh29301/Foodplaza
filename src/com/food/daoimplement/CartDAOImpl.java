@@ -20,9 +20,10 @@ public class CartDAOImpl implements CartDAO {
 
         boolean isFoodPresent = checkFoodInCart(cart.getFoodId(), cart.getEmailId());
         if (isFoodPresent) {
+
             return true;
         } else {
-            query = "inser into Cart (emailId, foodId, foodName, quantity, price, totalPrice) values (?,?,?,?,?,?)";
+            query = "insert into Cart (emailId, foodId, foodName, quantity, price, totalPrice) values (?,?,?,?,?,?)";
             try (Connection connection = DBConnection.getConnection();
                     PreparedStatement ps = connection.prepareStatement(query)) {
 
@@ -88,12 +89,23 @@ public class CartDAOImpl implements CartDAO {
     @Override
     public boolean updateCart(int cartId, int quantity) {
 
-        query = "update Cart set quantity = ? where cartId = ?";
+        query = "update Cart set quantity = ?, totalPrice =? where cartId = ?";
         try (Connection connection = DBConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query)) {
 
-            ps.setInt(1, quantity);
-            ps.setInt(2, cartId);
+            double updatetotal = 0;
+            int pq = 0;
+            Cart ncart = viewCartById(cartId);
+            if (ncart != null) {
+                pq = ncart.getQuantity() + quantity;
+                double total = ncart.getPrice();
+                updatetotal = total * pq;
+            } else {
+                System.out.println("Invalid Cart Id.");
+            }
+            ps.setInt(1, pq);
+            ps.setDouble(2, updatetotal);
+            ps.setInt(3, cartId);
 
             int i = ps.executeUpdate();
 
@@ -194,7 +206,7 @@ public class CartDAOImpl implements CartDAO {
 
     private boolean checkFoodInCart(int foodId, String emailId) {
 
-        query = "select cartId,quantity from Cart where foodId = ? and emailId = ?";
+        query = "select cartId from Cart where foodId = ? and emailId = ?";
 
         ResultSet resultSet = null;
         try (Connection connection = DBConnection.getConnection();
@@ -204,11 +216,11 @@ public class CartDAOImpl implements CartDAO {
             ps.setString(2, emailId);
             resultSet = ps.executeQuery();
             if (resultSet.next()) {
-                int cartId = resultSet.getInt(1);
-                int quantity = resultSet.getInt(2);
-                quantity += 1;
-
-                return updateCart(cartId, quantity);
+                
+                int cid = resultSet.getInt("cartId");
+                
+                
+                return updateCart(cid, 1)   ;
             }
 
         } catch (Exception e) {
