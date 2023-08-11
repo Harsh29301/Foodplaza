@@ -218,8 +218,6 @@ public class CartDAOImpl implements CartDAO {
             if (resultSet.next()) {
                 
                 int cid = resultSet.getInt("cartId");
-                
-                
                 return updateCart(cid, 1)   ;
             }
 

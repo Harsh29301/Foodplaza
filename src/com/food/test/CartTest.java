@@ -18,10 +18,7 @@ public class CartTest {
         int cartId, ch = 0;
         String emailId, password;
         int foodId;
-        String foodName;
         int quantity;
-        double price;
-        double totalPrice;
 
         Scanner sc = new Scanner(System.in);
         CartDAOImpl cartDAOImpl = new CartDAOImpl();
@@ -116,7 +113,14 @@ public class CartTest {
                         break;
 
                     case 5: // Clear My Cart
-
+                        boolean clear = cartDAOImpl.clearCart(emailId);
+                        if(clear)
+                        {
+                            System.out.println("Cart is Clear");
+                        }
+                        else{
+                            System.out.println("Error While Clearing the Cart.");
+                        }
                         break;
 
                     case 6: // Exit
