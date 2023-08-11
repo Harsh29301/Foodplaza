@@ -10,7 +10,9 @@ public interface OrderFoodDAO {
 
     boolean cancelOrder(int orderId);
 
-    OrderFood viewOrderDetailsByOrderId(int orderId);
+    OrderFood viewOrderByOrderId(int orderId);
+
+    List<OrderFood> viewOrderDetailsByOrderId(int orderId);
 
     List<OrderFood> viewMyOrderHistory(String emailId);
 
