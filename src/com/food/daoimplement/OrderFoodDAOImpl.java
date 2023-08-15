@@ -60,14 +60,14 @@ public class OrderFoodDAOImpl implements OrderFoodDAO {
 
     public boolean cartBackUp(int orderId, String emailId) {
 
-        query = "insert into OrderDetails (orderId, cartId, emailId, foodId, foodName, quantity, price, totalPrice) values (?,?,?,?,?,?,?,?)";
+        query = "insert into OrderDetials (orderId, cartId, emailId, foodId, foodName, quantity, price, totalPrice) values (?,?,?,?,?,?,?,?)";
 
         try (Connection connection = DBConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query)) {
-            int i = 0;
             List<Cart> myCart = new CartDAOImpl().viewCartByEmailId(emailId);
 
             for (Cart cart : myCart) {
+
                 ps.setInt(1, orderId);
                 ps.setInt(2, cart.getCartId());
                 ps.setString(3, emailId);
@@ -77,9 +77,12 @@ public class OrderFoodDAOImpl implements OrderFoodDAO {
                 ps.setDouble(7, cart.getPrice());
                 ps.setDouble(8, cart.getTotalPrice());
 
-                i = ps.executeUpdate();
+                ps.addBatch();
+
             }
-            if (i > 0) {
+
+             int i[] = ps.executeBatch();
+            if(i != null){
                 return true;
             }
 
