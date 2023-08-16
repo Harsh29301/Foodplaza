@@ -1,6 +1,6 @@
 package com.food.pojo;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class OrderFood {
     
@@ -12,7 +12,7 @@ public class OrderFood {
     private double price;
     private double totalPrice;
     private int orderId;
-    private Timestamp orderdate;
+    private LocalDateTime orderdate;
     private double totalBill;
     private String orderStatus;
     public OrderFood() {
@@ -65,10 +65,10 @@ public class OrderFood {
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
-    public Timestamp getOrderdate() {
+    public LocalDateTime getOrderdate() {
         return orderdate;
     }
-    public void setOrderdate(Timestamp timestamp) {
+    public void setOrderdate(LocalDateTime timestamp) {
         this.orderdate = timestamp;
     }
     public double getTotalBill() {
@@ -88,7 +88,7 @@ public class OrderFood {
         return "OrderFood [emailId=" + emailId + ", orderId=" + orderId + ", orderdate=" + orderdate + ", totalBill="
                 + totalBill + ", orderStatus=" + orderStatus + "]";
     }
-    public  OrderFood(String emailId, int orderId, Timestamp orderdate, double totalBill, String orderStatus) {
+    public  OrderFood(String emailId, int orderId, LocalDateTime orderdate, double totalBill, String orderStatus) {
         this.emailId = emailId;
         this.orderId = orderId;
         this.orderdate = orderdate;

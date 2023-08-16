@@ -153,7 +153,7 @@ public class OrderFoodDAOImpl implements OrderFoodDAO {
                 OrderFood nOrderFood = new OrderFood();
                 nOrderFood.setOrderId(rs.getInt(1));
                 nOrderFood.setEmailId(rs.getString(2));
-                nOrderFood.setOrderdate(rs.getTimestamp(3));
+                nOrderFood.setOrderdate(rs.getTimestamp(3).toLocalDateTime());
                 nOrderFood.setTotalBill(rs.getDouble(4));
                 nOrderFood.setOrderStatus(rs.getString(5));
 
@@ -192,7 +192,7 @@ public class OrderFoodDAOImpl implements OrderFoodDAO {
                 OrderFood nOrderFood = new OrderFood();
                 nOrderFood.setOrderId(rs.getInt(1));
                 nOrderFood.setEmailId(rs.getString(2));
-                nOrderFood.setOrderdate(rs.getTimestamp(3));
+                nOrderFood.setOrderdate(rs.getTimestamp(3).toLocalDateTime());
                 nOrderFood.setTotalBill(rs.getDouble(4));
                 nOrderFood.setOrderStatus(rs.getString(5));
 
@@ -251,7 +251,7 @@ public class OrderFoodDAOImpl implements OrderFoodDAO {
                 OrderFood nOrderFood = new OrderFood();
                 nOrderFood.setOrderId(rs.getInt(1));
                 nOrderFood.setEmailId(rs.getString(2));
-                nOrderFood.setOrderdate(rs.getTimestamp(3));
+                nOrderFood.setOrderdate(rs.getTimestamp(3).toLocalDateTime());
                 nOrderFood.setTotalBill(rs.getDouble(4));
                 nOrderFood.setOrderStatus(rs.getString(5));
 
