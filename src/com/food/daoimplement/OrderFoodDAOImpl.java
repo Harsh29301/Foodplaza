@@ -275,7 +275,7 @@ public class OrderFoodDAOImpl implements OrderFoodDAO {
 
     @Override
     public List<OrderFood> viewOrderByOrderId(int orderId) {
-        query = " select * from OrderDetails where orderId = ?";
+        query = " select * from OrderDetials where orderId = ?";
         List<OrderFood> myOrders = new ArrayList<>();
         ResultSet rs = null;
 

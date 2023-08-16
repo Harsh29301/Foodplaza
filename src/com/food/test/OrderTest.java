@@ -99,7 +99,15 @@ public class OrderTest {
                     }
                     else{
                         for (OrderFood orderFood : dataList) {
-                            System.out.println(orderFood);
+                            System.out.println("***************************************************");
+                            System.out.println("Order Id: " + orderFood.getOrderId());
+                            System.out.println("Cart Id: " + orderFood.getCartId());
+                            System.out.println("Mail Id: " + orderFood.getEmailId());
+                            System.out.println("Food Id: " + orderFood.getFoodId());
+                            System.out.println("Food Name: " + orderFood.getFoodName());
+                            System.out.println("Quantity: " + orderFood.getQuantity());
+                            System.out.println("Total Price: " + orderFood.getTotalPrice());
+                            System.out.println("***************************************************");
                         }
                     }
                     break;
