@@ -239,7 +239,7 @@ public class OrderFoodDAOImpl implements OrderFoodDAO {
     @Override
     public List<OrderFood> viewAllOrders() {
         query = " select * from OrderFood";
-        List<OrderFood> allOrders = new ArrayList<>(null);
+        List<OrderFood> allOrders = new ArrayList<>();
         ResultSet rs = null;
 
         try (Connection connection = DBConnection.getConnection();
